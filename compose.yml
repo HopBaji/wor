@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_ROOT_PASSWORD: secret
+      POSTGRES_DATABASE: stage
+      POSTGRES_USER: example
+      POSTGRES_PASSWORD: secret2
+    volumes:
+      - ./dbdata:/var/lib/postgres/
+
