@@ -12,11 +12,11 @@ public class loginController {
     }
     @GetMapping("/")
     public String home() {
-        return "home"; // Имя шаблона, например, home.html
+        return "home";
     }
     @GetMapping("/login")
     public String login() {
-        return "login1"; // Указывает на login1.html в templates
+        return "login1";
     }
 
 }
