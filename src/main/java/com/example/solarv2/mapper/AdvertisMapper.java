@@ -20,6 +20,7 @@ import java.util.List;
         @Mapping(target = "createDateTime", ignore = true)
         @Mapping(target = "seller", constant = "user")
         @Mapping(target = "category", source = "category")
+        @Mapping(target = "condition", source = "condition")
         @Mapping(target = "name", source = "name")
         @Mapping(target = "description",source = "description")
         Advertisement toAdvertisement(AdvertisRequest advertisRequest);

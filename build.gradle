@@ -47,13 +47,25 @@ dependencies {
     compileOnly 'org.mapstruct:mapstruct'
     annotationProcessor 'org.mapstruct:mapstruct-processor'
 
-    //Flyway
-	//implementation 'org.flywaydb:flyway-core'
 
 	//swagger
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0"
 
+	// Spring Boot Starter Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 
+	// Keycloak Spring Boot Starter
+	//implementation 'org.keycloak:keycloak-spring-boot-starter:24.0.5'
+
+	// Spring Boot OAuth2 Resource Server for JWT support
+	//implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
+	// Spring Boot Starter Web (if needed for REST APIs)
+	//implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Test dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 
 }
 

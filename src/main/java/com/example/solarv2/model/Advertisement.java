@@ -1,6 +1,7 @@
 package com.example.solarv2.model;
 
 import com.example.solarv2.enums.CategoryEnum;
+import com.example.solarv2.enums.ConditionEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,5 +39,10 @@ public class Advertisement {
     private LocalDateTime createDateTime;
     @Column(name = "адрес")
     private String address;
+    @Column(name = "состояние")
+    @Enumerated(EnumType.STRING)
+    private ConditionEnum condition;
+
+
 }
 

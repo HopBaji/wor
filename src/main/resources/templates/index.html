@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>home page</title>
+  <form th:action="@{/login}" method="post">
+    <div>
+      <input type="submit" value="Login and Registrationi"/>
+    </div>
+  </form>
+  <form th:action="@{/new}" method="get">
+    <div>
+      <input type="submit" value="Создание нового объявления"/>
+    </div>
+  </form>
+  <form th:action="@{/search}" method="get">
+    <div>
+      <input type="text" name="name" placeholder="Поиск по заголовку"/>
+      <input type="submit" value="Найти"/>
+    </div>
+  </form>
+</head>
+<body>
+<section class="AllAdvertisement">
+  <h3>Актуальная информация</h3>
+  <div th:each="el : ${Advertisement}" class="editInformation">
+    <div>
+      <label>ID</label>
+      <p th:text="${el.id}" class="size" name="text" id="5" placeholder="Текст"></p>
+      <label>Заголовок</label>
+      <p th:text="${el.name}" class="size" name="text" id="1" placeholder="Текст"></p>
+      <label>Категория</label>
+      <p th:text="${el.category}" class="size" name="text" id="2" placeholder="Текст"></p>
+      <label>Цена:</label>
+      <p th:text="${el.sel}" class="size" name="text" id="3" placeholder="Текст"></p>
+      <label>Подкатегория:</label>
+      <p th:text="${el.subcategory}" class="size" name="text" id="4" placeholder="Текст"></p>
+      <a th:href="@{/delete/{id}(id=${el.id})}"
+         onclick="return confirm('Вы уверены?')">Удалить</a>
+      <a th:href="@{/new/{id}(id=${el.id})}"
+         onclick="return confirm('Вы уверены?')">Редактировать</a>
+    </div>
+    <hr class="hh1">
+  </div>
+</section>
+<a href="/new">Добавить новое объявление</a>
+<div th:if="${advertisements != null and !advertisements.empty}">
+</div>
+</body>
+</html>

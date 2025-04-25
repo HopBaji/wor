@@ -18,6 +18,8 @@ public class AdvertisRequest {
     private String category;
     @NotBlank
     private String subcategory;
+    @NotBlank
+    private String condition;
     @Positive
     private Integer sel;
     private String description;

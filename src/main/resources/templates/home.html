@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Главная страница</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f7fa;
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .forms-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 200px;
+        transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+
+    input[type="submit"], a.button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover, a.button:hover {
+        background-color: #0056b3;
+    }
+
+    .AllAdvertisement {
+        margin-top: 20px;
+    }
+
+    .editInformation {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .editInformation label {
+        font-weight: bold;
+        color: #555;
+        width: 120px;
+    }
+
+    .editInformation p {
+        margin: 0;
+        color: #333;
+        font-size: 16px;
+    }
+
+    .editInformation .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .editInformation a {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .editInformation a:hover {
+        text-decoration: underline;
+    }
+
+    .delete-link {
+        color: #dc3545;
+    }
+
+    .delete-link:hover {
+        color: #a71d2a;
+    }
+
+    hr {
+        border: 0;
+        border-top: 1px solid #ddd;
+        margin: 20px 0;
+    }
+
+    .add-new {
+        display: block;
+        text-align: center;
+Plutonium
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+        }
+
+        .forms-container {
+            flex-direction: column;
+        }
+
+        input[type="text"] {
+            width: 100%;
+        }
+
+        input[type="submit"], a.button {
+            width: 100%;
+            text-align: center;
+        }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="forms-container">
+    <form th:action="@{/login}" method="post" class="form-group">
+      <input type="submit" value="Вход и регистрация"/>
+    </form>
+    <form th:action="@{/new}" method="get" class="form-group">
+      <input type="submit" value="Создать новое объявление"/>
+    </form>
+    <form th:action="@{/search}" method="get" class="form-group">
+      <input type="text" name="name" placeholder="Поиск по заголовку"/>
+      <input type="submit" value="Найти"/>
+    </form>
+  </div>
+
+  <section class="AllAdvertisement">
+    <h3>Актуальная информация</h3>
+    <div th:each="el : ${Advertisement}" class="editInformation">
+      <div>
+        <label>ID:</label>
+        <p th:text="${el.id}"></p>
+      </div>
+      <div>
+        <label>Заголовок:</label>
+        <p th:text="${el.name}"></p>
+      </div>
+      <div>
+        <label>Категория:</label>
+        <p th:text="${el.category}"></p>
+      </div>
+      <div>
+        <label>Цена:</label>
+        <p th:text="${el.sel}"></p>
+      </div>
+      <div>
+        <label>Подкатегория:</label>
+        <p th:text="${el.subcategory}"></p>
+      </div>
+      <div class="actions">
+        <a th:href="@{/delete/{id}(id=${el.id})}" class="delete-link"
+           onclick="return confirm('Вы уверены?')">Удалить</a>
+        <a th:href="@{/new/{id}(id=${el.id})}"
+           onclick="return confirm('Вы уверены?')">Редактировать</a>
+      </div>
+    </div>
+    <hr th:if="${#lists.size(Advertisement) > 0}"/>
+  </section>
+
+  <a href="/new" class="add-new button">Добавить новое объявление</a>
+</div>
+</body>
+</html>

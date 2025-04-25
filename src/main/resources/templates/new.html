@@ -1,10 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Форма объявления</title>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            button, a {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-
+<div class="container">
+    <h2 th:text="${advertisement != null and advertisement.id != null} ? 'Редактировать объявление' : 'Создать объявление'"></h2>
+    <form th:action="@{/save}" th:object="${advertisement}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="form-group">
+            <label for="name">Заголовок:</label>
+            <input type="text" id="name" th:field="*{name}" placeholder="Введите заголовок объявления"/>
+        </div>
+        <div class="form-group">
+            <label for="description">Описание:</label>
+            <textarea id="description" th:field="*{description}" placeholder="Опишите объявление"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="sel">Цена:</label>
+            <input type="text" id="sel" th:field="*{sel}" placeholder="Укажите цену"/>
+        </div>
+        <div class="form-group">
+            <label for="address">Адрес:</label>
+            <input type="text" id="address" th:field="*{address}" placeholder="Укажите адрес"/>
+        </div>
+        <div class="form-group">
+            <label for="category">Категория:</label>
+            <select id="category" th:field="*{category}">
+                <option value="" disabled selected>Выберите категорию</option>
+                <option th:each="cat : ${T(com.example.solarv2.enums.CategoryEnum).values()}"
+                        th:value="${cat}"
+                        th:text="${cat.displayName}"
+                        th:selected="${cat == advertisement.category}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="condition">Состояние:</label>
+            <select id="condition" th:field="*{condition}">
+                <option value="" disabled selected>Выберите состояние</option>
+                <option th:each="cat : ${T(com.example.solarv2.enums.ConditionEnum).values()}"
+                        th:value="${cat}"
+                        th:text="${cat.displayName}"
+                        th:selected="${cat == advertisement.condition}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Subcategory">Подкатегория:</label>
+            <textarea id="Subcategory" th:field="*{Subcategory}" placeholder="Укажите подкатегорию"></textarea>
+        </div>
+        <div class="button-group">
+            <button type="submit">Сохранить</button>
+            <a href="/">Отмена</a>
+        </div>
+    </form>
+</div>
 </body>
 </html>

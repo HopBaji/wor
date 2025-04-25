@@ -13,6 +13,25 @@ services:
         POSTGRES_DATABASE: stage
         POSTGRES_USER: example
         POSTGRES_PASSWORD: secret2
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin123
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://postgres:5432/
+      - KC_DB_USERNAME=example
+      - KC_DB_PASSWORD=secret2
+      - KC_HOSTNAME=localhost
+      - KC_HOSTNAME_PORT=8080
+      - KC_HOSTNAME_STRICT=false
+      - KC_LOG_LEVEL=info
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    command: start-dev
 
 
 
